@@ -30,7 +30,7 @@ public class Emprestimo {
 	private Integer codigoEmprestimo;
 
 	@ManyToOne
-	@JoinColumn(name = "numeromatriculaaluno", referencedColumnName = "")
+	@JoinColumn(name = "numeromatriculaaluno", referencedColumnName = "numeromatriculaaluno")
 	private Aluno aluno;
 
 	@Column(name = "codigolivro")
