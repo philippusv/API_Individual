@@ -31,7 +31,7 @@ public class Editora {
 	@Column(name = "nome")
 	private String nome;
 
-	@Column(name = "imagemnome")
+	@Column(name = "imagem_nome")
 	private Date imagemNome;
 
 	@Column(name = "imagem_filename")

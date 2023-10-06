@@ -48,7 +48,7 @@ public class Aluno {
 	@Column(name = "logradouro")
 	private String logradouro;
 
-	@Column(name = "numeromalogradouro")
+	@Column(name = "numerologradouro")
 	private String numeroLogradouro;
 
 	@Column(name = "complemento")
