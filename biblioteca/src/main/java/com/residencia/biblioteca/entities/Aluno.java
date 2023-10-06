@@ -33,8 +33,8 @@ public class Aluno {
 
 	@Id // o Id é para informar que a entidade é a chave primaria
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // vai ser usado para gerar um valor automático
-	@Column(name = "numeromatricaaluno") // é opcional
-	private Integer numeroMatricaAluno;
+	@Column(name = "numeromatriculaaluno") // é opcional
+	private Integer numeroMatriculaAluno;
 
 	@Column(name = "nome")
 	private String nome;
@@ -63,12 +63,12 @@ public class Aluno {
 	@OneToMany(mappedBy = "aluno")
 	private List<Emprestimo> emprestimos;
 
-	public Integer getNumeroMatricaAluno() {
-		return numeroMatricaAluno;
+	public Integer getNumeroMatriculaAluno() {
+		return numeroMatriculaAluno;
 	}
 
-	public void setNumeroMatricaAluno(Integer numeroMatricaAluno) {
-		this.numeroMatricaAluno = numeroMatricaAluno;
+	public void setNumeroMatricaAluno(Integer numeroMatriculaAluno) {
+		this.numeroMatriculaAluno = numeroMatriculaAluno;
 	}
 
 	public String getNome() {
