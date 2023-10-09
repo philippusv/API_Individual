@@ -1,7 +1,8 @@
 package com.residencia.biblioteca.entities;
 
-import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +33,7 @@ public class Editora {
 	private String nome;
 
 	@Column(name = "imagem_nome")
-	private Date imagemNome;
+	private String imagemNome;
 
 	@Column(name = "imagem_filename")
 	private String imagem_FileName;
@@ -40,6 +41,7 @@ public class Editora {
 	@Column(name = "imagem_url")
 	private String imagem_Url;
 	
+	@JsonManagedReference(value = "editora-mng-ref")
 	@OneToMany(mappedBy = "editora")
 	private List<Livro> livros;
 
@@ -59,11 +61,11 @@ public class Editora {
 		this.nome = nome;
 	}
 
-	public Date getImagemNome() {
+	public String getImagemNome() {
 		return imagemNome;
 	}
 
-	public void setImagemNome(Date imagemNome) {
+	public void setImagemNome(String imagemNome) {
 		this.imagemNome = imagemNome;
 	}
 

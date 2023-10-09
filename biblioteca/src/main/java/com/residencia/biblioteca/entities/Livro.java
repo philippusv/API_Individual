@@ -1,6 +1,10 @@
 package com.residencia.biblioteca.entities;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /*
@@ -41,6 +46,11 @@ public class Livro {
 	@Column(name = "codigoisbn")
 	private Integer codigoIsbn;
 	
+	@JsonManagedReference(value = "livro-mng-ref")
+    @OneToMany(mappedBy = "livro")
+    private List<Emprestimo> emprestimos;
+	
+	@JsonBackReference(value = "editora-mng-ref")
 	@ManyToOne
 	@JoinColumn(name = "codigoeditora", referencedColumnName = "codigoeditora")
 	private Editora editora;
@@ -92,5 +102,14 @@ public class Livro {
 	public void setEditora(Editora editora) {
 		this.editora = editora;
 	}
+
+	public List<Emprestimo> getEmprestimos() {
+		return emprestimos;
+	}
+
+	public void setEmprestimos(List<Emprestimo> emprestimos) {
+		this.emprestimos = emprestimos;
+	}
+	
 	
 }
