@@ -1,6 +1,7 @@
 package com.residencia.biblioteca.services;
 
 import java.util.List;
+//import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,14 @@ public class AlunoService {
 	}
 	
 	public Aluno buscarAlunoPorId(Integer id) {
-		return alunoRepo.findById(id).get();
+//		return alunoRepo.findById(id).get();
+//		Optional<Aluno> alunoBanco = alunoRepo.findById(id);
+//		if(alunoBanco.isPresent())
+//			return alunoBanco.get();
+//		else
+//			return null;
+		
+		return alunoRepo.findById(id).orElse(null);
 	}
 	
 	public Aluno salvarAluno(Aluno aluno) {

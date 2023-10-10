@@ -2,7 +2,8 @@ package com.residencia.biblioteca.entities;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +21,8 @@ imagem_filename varchar(255),
 imagem_url varchar(255),	
 CONSTRAINT editora_pkey PRIMARY KEY (codigoeditora)
 */
+
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "codigoEditora")
 
 @Entity
 @Table(name = "editora")
@@ -41,7 +44,7 @@ public class Editora {
 	@Column(name = "imagem_url")
 	private String imagem_Url;
 	
-	@JsonManagedReference(value = "editora-mng-ref")
+	/*@JsonManagedReference(value = "editora-mng-ref")*/
 	@OneToMany(mappedBy = "editora")
 	private List<Livro> livros;
 

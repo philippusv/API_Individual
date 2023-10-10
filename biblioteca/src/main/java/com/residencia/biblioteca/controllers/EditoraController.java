@@ -20,33 +20,37 @@ import com.residencia.biblioteca.services.EditoraService;
 @RestController
 @RequestMapping("/editoras")
 public class EditoraController {
-	
+
 	@Autowired
 	EditoraService editoraService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Editora>> listarEditoras(){
+	public ResponseEntity<List<Editora>> listarEditoras() {
 		return new ResponseEntity<>(editoraService.listarEditoras(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Editora> buscarPorId(@PathVariable Integer id){
-		return new ResponseEntity<>(editoraService.buscarEditoraPorId(id),HttpStatus.OK);
+	public ResponseEntity<Editora> buscarPorId(@PathVariable Integer id) {
+		Editora editora = editoraService.buscarEditoraPorId(id);
+		if (editora == null)
+			return new ResponseEntity<>(editora, HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<>(editora, HttpStatus.OK);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Editora> salvar(@RequestBody Editora editora){
-		return new ResponseEntity<>(editoraService.salvarEditora(editora),HttpStatus.CREATED);
+	public ResponseEntity<Editora> salvar(@RequestBody Editora editora) {
+		return new ResponseEntity<>(editoraService.salvarEditora(editora), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Editora> atualizar(@RequestBody Editora editora){
-		return new ResponseEntity<>(editoraService.atualizarEditora(editora),HttpStatus.OK);
+	public ResponseEntity<Editora> atualizar(@RequestBody Editora editora) {
+		return new ResponseEntity<>(editoraService.atualizarEditora(editora), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping
 	public ResponseEntity<String> deletarEditora(@RequestBody Editora editora) {
 		editoraService.deletarEditora(editora);
-		return new ResponseEntity<>("Deletado com sucesso",HttpStatus.OK);
+		return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
 	}
 }

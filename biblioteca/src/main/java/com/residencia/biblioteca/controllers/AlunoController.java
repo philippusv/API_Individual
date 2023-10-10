@@ -21,38 +21,42 @@ import com.residencia.biblioteca.services.AlunoService;
 @RestController
 @RequestMapping("/alunos")
 public class AlunoController {
-	
+
 	@Autowired
 	AlunoService alunoService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Aluno>> listarAlunos(){
+	public ResponseEntity<List<Aluno>> listarAlunos() {
 		return new ResponseEntity<>(alunoService.listarAlunos(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id){
-		return new ResponseEntity<>(alunoService.buscarAlunoPorId(id),HttpStatus.OK);
+	public ResponseEntity<Aluno> buscarPorId(@PathVariable Integer id) {
+		Aluno aluno = alunoService.buscarAlunoPorId(id);
+		if (aluno == null)
+			return new ResponseEntity<>(aluno, HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<>(aluno, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/porid")
-	public ResponseEntity<Aluno> buscarAlunoPorId(@RequestParam Integer id){
-		return new ResponseEntity<>(alunoService.buscarAlunoPorId(id),HttpStatus.OK);
+	public ResponseEntity<Aluno> buscarAlunoPorId(@RequestParam Integer id) {
+		return new ResponseEntity<>(alunoService.buscarAlunoPorId(id), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Aluno> salvar(@RequestBody Aluno aluno){
-		return new ResponseEntity<>(alunoService.salvarAluno(aluno),HttpStatus.CREATED);
+	public ResponseEntity<Aluno> salvar(@RequestBody Aluno aluno) {
+		return new ResponseEntity<>(alunoService.salvarAluno(aluno), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Aluno> atualizar(@RequestBody Aluno aluno){
-		return new ResponseEntity<>(alunoService.atualizarAluno(aluno),HttpStatus.OK);
+	public ResponseEntity<Aluno> atualizar(@RequestBody Aluno aluno) {
+		return new ResponseEntity<>(alunoService.atualizarAluno(aluno), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping
 	public ResponseEntity<String> deletarAluno(@RequestBody Aluno aluno) {
 		alunoService.deletarAluno(aluno);
-		return new ResponseEntity<>("Deletado com sucesso",HttpStatus.OK);
+		return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
 	}
 }
