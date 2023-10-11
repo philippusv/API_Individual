@@ -56,7 +56,10 @@ public class AlunoController {
 
 	@DeleteMapping
 	public ResponseEntity<String> deletarAluno(@RequestBody Aluno aluno) {
-		alunoService.deletarAluno(aluno);
-		return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+		if (Boolean.TRUE.equals(alunoService.deletarAluno(aluno))) {
+			return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
+		}
 	}
 }

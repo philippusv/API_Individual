@@ -39,8 +39,6 @@ public class Livro {
 	@Column(name = "nomelivro")
 	private String nomeLivro;
 
-	@Column(name = "nomeautor")
-	private String nomeAutor;
 
 	@Column(name = "datalancamento")
 	private Date dataLancamento;
@@ -56,6 +54,10 @@ public class Livro {
 	@ManyToOne
 	@JoinColumn(name = "codigoeditora", referencedColumnName = "codigoeditora")
 	private Editora editora;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigoautor", referencedColumnName = "codigoautor")
+	private Autor autor;
 
 	public Integer getCodigoLivro() {
 		return codigoLivro;
@@ -71,14 +73,6 @@ public class Livro {
 
 	public void setNomeLivro(String nomeLivro) {
 		this.nomeLivro = nomeLivro;
-	}
-
-	public String getNomeAutor() {
-		return nomeAutor;
-	}
-
-	public void setNomeAutor(String nomeAutor) {
-		this.nomeAutor = nomeAutor;
 	}
 
 	public Date getDataLancamento() {

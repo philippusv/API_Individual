@@ -29,7 +29,20 @@ public class EditoraService {
 		return editoraRepo.save(editora);
 	}
 	
-	public void deletarEditora(Editora editora) {
+	public Boolean deletarEditora(Editora editora) {
+		if (editora == null)
+			return false;
+
+		Editora editoraExistente = buscarEditoraPorId(editora.getCodigoEditora());
+		if (editoraExistente == null)
+			return false;
+
 		editoraRepo.delete(editora);
+
+		Editora editoraContinuaExistindo = buscarEditoraPorId(editora.getCodigoEditora());
+		if (editoraContinuaExistindo == null)
+			return true;
+
+		return false;
 	}
 }

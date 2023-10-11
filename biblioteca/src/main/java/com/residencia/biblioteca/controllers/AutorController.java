@@ -14,46 +14,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.residencia.biblioteca.entities.Livro;
-import com.residencia.biblioteca.services.LivroService;
+import com.residencia.biblioteca.entities.Autor;
+import com.residencia.biblioteca.services.AutorService;
 
 @RestController
-@RequestMapping("/livros")
-public class LivroController {
+@RequestMapping("/autor")
+public class AutorController {
 	
 	@Autowired
-	LivroService livroService;
+	AutorService autorService;
 	
 	@GetMapping
-	public ResponseEntity<List<Livro>> listarLivros(){
-		return new ResponseEntity<>(livroService.listarLivro(), HttpStatus.OK);
+	public ResponseEntity<List<Autor>> listarAutores(){
+		return new ResponseEntity<>(autorService.listarAutores(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<Autor> buscarPorId(@PathVariable Integer id) {
+		Autor autor = autorService.buscarAutorPorId(id);
+		if (autor == null)
+			return new ResponseEntity<>(autor, HttpStatus.NOT_FOUND);
+		else
+			return new ResponseEntity<>(autor, HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Livro> buscarPorId(@PathVariable Integer id){
-		Livro livro = livroService.buscarLivroPorId(id);
-		if (livro == null)
-			return new ResponseEntity<>(livro, HttpStatus.NOT_FOUND);
-		else
-			return new ResponseEntity<>(livro, HttpStatus.OK);
-	}
-	
 	@PostMapping
-	public ResponseEntity<Livro> salvar(@RequestBody Livro livro){
-		return new ResponseEntity<>(livroService.salvarLivro(livro),HttpStatus.CREATED);
+	public ResponseEntity<Autor> salvar(@RequestBody Autor autor) {
+		return new ResponseEntity<>(autorService.salvarAutor(autor), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
-	public ResponseEntity<Livro> atualizar(@RequestBody Livro livro){
-		return new ResponseEntity<>(livroService.atualizarLivro(livro),HttpStatus.OK);
+	public ResponseEntity<Autor> atualizar(@RequestBody Autor autor) {
+		return new ResponseEntity<>(autorService.atualizarAutor(autor), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping
-	public ResponseEntity<String> deletarLivro(@RequestBody Livro livro) {
-		if (Boolean.TRUE.equals(livroService.deletarLivro(livro))) {
+	public ResponseEntity<String> deletarAutor(@RequestBody Autor autor) {
+		if (Boolean.TRUE.equals(autorService.deletarAutor(autor))) {
 			return new ResponseEntity<>("Deletado com sucesso", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Não foi possivel deletar", HttpStatus.BAD_REQUEST);
 		}
 	}
+
 }

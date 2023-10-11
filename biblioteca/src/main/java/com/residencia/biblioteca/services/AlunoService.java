@@ -11,21 +11,21 @@ import com.residencia.biblioteca.repositories.AlunoRepository;
 
 @Service
 public class AlunoService {
-	
+
 //CRUD
 //recuperar todos os alunos
 //recuperar um aluno pela sua chave primária
 //salvar um novo aluno
 //atualizar um determinado aluno
 //deletar um determinado aluno
-	
-	@Autowired  // essa anotação é para injeção de dependencia, recursos de outro lugar
+
+	@Autowired // essa anotação é para injeção de dependencia, recursos de outro lugar
 	AlunoRepository alunoRepo;
-	
-	public List<Aluno> listarAlunos(){
+
+	public List<Aluno> listarAlunos() {
 		return alunoRepo.findAll();
 	}
-	
+
 	public Aluno buscarAlunoPorId(Integer id) {
 //		return alunoRepo.findById(id).get();
 //		Optional<Aluno> alunoBanco = alunoRepo.findById(id);
@@ -33,20 +33,32 @@ public class AlunoService {
 //			return alunoBanco.get();
 //		else
 //			return null;
-		
+
 		return alunoRepo.findById(id).orElse(null);
 	}
-	
+
 	public Aluno salvarAluno(Aluno aluno) {
 		return alunoRepo.save(aluno);
 	}
-	
+
 	public Aluno atualizarAluno(Aluno aluno) {
 		return alunoRepo.save(aluno);
 	}
-	
-	public void deletarAluno(Aluno aluno) {
+
+	public Boolean deletarAluno(Aluno aluno) {
+		if (aluno == null)
+			return false;
+
+		Aluno alunoExistente = buscarAlunoPorId(aluno.getNumeroMatriculaAluno());
+		if (alunoExistente == null)
+			return false;
+
 		alunoRepo.delete(aluno);
-		//Aluno confereAlunoDeletado = buscarAlunoPorId(aluno.getNumeroMatricaAluno());
+
+		Aluno alunoContinuaExistindo = buscarAlunoPorId(aluno.getNumeroMatriculaAluno());
+		if (alunoContinuaExistindo == null)
+			return true;
+
+		return false;
 	}
 }
