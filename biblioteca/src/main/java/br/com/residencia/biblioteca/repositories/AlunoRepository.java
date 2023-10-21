@@ -1,0 +1,11 @@
+package br.com.residencia.biblioteca.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import br.com.residencia.biblioteca.entities.Aluno;
+
+public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
+	
+	
+
+}
